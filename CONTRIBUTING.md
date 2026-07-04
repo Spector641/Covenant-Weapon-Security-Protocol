@@ -48,3 +48,7 @@ Please ensure:
 ---
 
 Thank you for helping improve Covenant Weapon Security Protocol.
+
+---
+
+If it works, don't rush to add features. Make it better first.

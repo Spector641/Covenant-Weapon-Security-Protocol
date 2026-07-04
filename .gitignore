@@ -1,1 +1,5 @@
-
+*.pbo
+*.rpt
+*.bidmp
+*.log
+build/

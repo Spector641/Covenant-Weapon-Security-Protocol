@@ -1,4 +1,4 @@
-class CWSP_HUD
+class CWSP_Terminal
 {
     idd = -1;
     duration = 999999;

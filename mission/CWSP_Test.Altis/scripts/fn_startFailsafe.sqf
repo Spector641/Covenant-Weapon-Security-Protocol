@@ -31,6 +31,8 @@ FOREIGN BIOMETRIC SIGNATURE DETECTED
 "
 ] call CWSP_fnc_showWarning;
 
+["warning"] call CWSP_fnc_playAudio; // <-- Stage 1 Ses Eklemesi
+
 sleep 1;
 
 if (!alive _unit) exitWith {};
@@ -77,6 +79,8 @@ RESULT: UNAUTHORIZED USER
 </t>
 "
 ] call CWSP_fnc_showWarning;
+
+["scan"] call CWSP_fnc_playAudio; // <-- Stage 2 Ses Eklemesi
 
 sleep 1;
 
@@ -128,6 +132,8 @@ for "_i" from 3 to 1 step -1 do {
         _i
     ]
     ] call CWSP_fnc_showWarning;
+
+    ["countdown"] call CWSP_fnc_playAudio; // <-- Countdown Döngü İçi Ses Eklemesi
 
     sleep 1;
 
@@ -199,6 +205,8 @@ FAILSAFE ACTIVATED
 </t>
 "
 ] call CWSP_fnc_showWarning;
+
+["activated"] call CWSP_fnc_playAudio; // <-- Activated Ses Eklemesi
 
 sleep 0.3;
 

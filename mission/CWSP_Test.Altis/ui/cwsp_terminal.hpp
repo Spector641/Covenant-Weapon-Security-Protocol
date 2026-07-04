@@ -6,9 +6,12 @@ class CWSP_Terminal
     fadeOut = 0;
     movingEnable = 0;
 
+    onLoad = "uiNamespace setVariable ['CWSP_Terminal', _this select 0];";
+    onUnload = "uiNamespace setVariable ['CWSP_Terminal', displayNull];";
+
     class controls
     {
-        class CWSP_Text
+        class TerminalText
         {
             idc = 1000;
 
@@ -16,21 +19,21 @@ class CWSP_Terminal
             style = 0;
 
             x = 0.30;
-            y = 0.22;
+            y = 0.20;
             w = 0.40;
-            h = 0.50;
+            h = 0.60;
 
-            size = 0.035;
+            size = 0.032;
 
-            colorBackground[] = {0,0,0,0};
+            colorBackground[] = {0,0,0,0.70};
 
             text = "";
 
             class Attributes
             {
-                align = "center";
-                color = "#FFFFFF";
                 font = "PuristaMedium";
+                color = "#FFFFFF";
+                align = "center";
                 shadow = 1;
             };
         };

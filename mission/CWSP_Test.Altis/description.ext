@@ -1,1 +1,17 @@
+class CfgFunctions
+{
+    class CWSP
+    {
+        class Main
+        {
+            file = "scripts";
 
+            class detectWeapon {};
+            class startFailsafe {};
+            class isAuthorized {};
+            class abortFailsafe {};
+            class showWarning {};
+            class playEffects {};
+        };
+    };
+};

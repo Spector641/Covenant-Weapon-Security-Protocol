@@ -83,7 +83,34 @@ FAILSAFE PROTOCOL ARMED
     };
 };
 
-// ---------- Stage 4 ----------
+// ---------- Final Verification ----------
+
+[
+"<t align='center' color='#FFAA00'>
+FINAL BIOMETRIC VERIFICATION
+</t>"
+] call _show;
+
+sleep 0.5;
+
+if (!alive _unit) exitWith {};
+if !([] call _holdingWeapon) exitWith {
+
+    [
+    "<t align='center' color='#66FF66'>
+    FAILSAFE CANCELLED
+    </t><br/><br/>
+    <t align='center'>
+    Weapon released before activation.
+    </t>"
+    ] call _show;
+
+    sleep 2;
+
+    hintSilent "";
+};
+
+// ---------- Activated ----------
 
 [
 "<t align='center' color='#FF0000' size='1.5'>
@@ -91,7 +118,7 @@ FAILSAFE ACTIVATED
 </t>"
 ] call _show;
 
-sleep 0.5;
+sleep 0.3;
 
 hintSilent "";
 

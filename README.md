@@ -5,6 +5,10 @@
 ████████████████████████████████████████
 # Covenant Weapon Security Protocol (CWSP)
 
+![Version](https://img.shields.io/badge/version-0.2.1-blue)
+![Status](https://img.shields.io/badge/status-Alpha-orange)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 > *"Unauthorized users are not permitted to operate Covenant weaponry."*
 
 CWSP is an immersive, multiplayer-focused security system for **Arma 3** inspired by the **Halo** universe.

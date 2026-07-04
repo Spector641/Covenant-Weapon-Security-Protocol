@@ -31,29 +31,13 @@ FOREIGN BIOMETRIC SIGNATURE DETECTED
 "
 ] call CWSP_fnc_showWarning;
 
-["warning"] call CWSP_fnc_playAudio; // <-- Stage 1 Ses Eklemesi
+["warning"] call CWSP_fnc_playAudio;
 
 sleep 1;
 
 if (!alive _unit) exitWith {};
-
 if !([] call _holdingWeapon) exitWith {
-
-    [
-    "
-    <t align='center' color='#66FF66'>
-    FAILSAFE CANCELLED
-    </t>
-
-    <br/><br/>
-
-    Weapon released before activation.
-    "
-    ] call CWSP_fnc_showWarning;
-
-    sleep 2;
-
-    hintSilent "";
+    [] call CWSP_fnc_abortFailsafe;
 };
 
 //--------------------------------------------------
@@ -80,29 +64,13 @@ RESULT: UNAUTHORIZED USER
 "
 ] call CWSP_fnc_showWarning;
 
-["scan"] call CWSP_fnc_playAudio; // <-- Stage 2 Ses Eklemesi
+["scan"] call CWSP_fnc_playAudio;
 
 sleep 1;
 
 if (!alive _unit) exitWith {};
-
 if !([] call _holdingWeapon) exitWith {
-
-    [
-    "
-    <t align='center' color='#66FF66'>
-    FAILSAFE CANCELLED
-    </t>
-
-    <br/><br/>
-
-    Weapon released before activation.
-    "
-    ] call CWSP_fnc_showWarning;
-
-    sleep 2;
-
-    hintSilent "";
+    [] call CWSP_fnc_abortFailsafe;
 };
 
 //--------------------------------------------------
@@ -133,29 +101,13 @@ for "_i" from 3 to 1 step -1 do {
     ]
     ] call CWSP_fnc_showWarning;
 
-    ["countdown"] call CWSP_fnc_playAudio; // <-- Countdown Döngü İçi Ses Eklemesi
+    ["countdown"] call CWSP_fnc_playAudio;
 
     sleep 1;
 
     if (!alive _unit) exitWith {};
-
     if !([] call _holdingWeapon) exitWith {
-
-        [
-        "
-        <t align='center' color='#66FF66'>
-        FAILSAFE CANCELLED
-        </t>
-
-        <br/><br/>
-
-        Weapon released before activation.
-        "
-        ] call CWSP_fnc_showWarning;
-
-        sleep 2;
-
-        hintSilent "";
+        [] call CWSP_fnc_abortFailsafe;
     };
 };
 
@@ -174,24 +126,8 @@ FINAL BIOMETRIC VERIFICATION
 sleep 0.5;
 
 if (!alive _unit) exitWith {};
-
 if !([] call _holdingWeapon) exitWith {
-
-    [
-    "
-    <t align='center' color='#66FF66'>
-    FAILSAFE CANCELLED
-    </t>
-
-    <br/><br/>
-
-    Weapon released before activation.
-    "
-    ] call CWSP_fnc_showWarning;
-
-    sleep 2;
-
-    hintSilent "";
+    [] call CWSP_fnc_abortFailsafe;
 };
 
 //--------------------------------------------------
@@ -206,7 +142,7 @@ FAILSAFE ACTIVATED
 "
 ] call CWSP_fnc_showWarning;
 
-["activated"] call CWSP_fnc_playAudio; // <-- Activated Ses Eklemesi
+["activated"] call CWSP_fnc_playAudio;
 
 sleep 0.3;
 

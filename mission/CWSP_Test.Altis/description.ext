@@ -17,8 +17,7 @@ class CfgFunctions
     };
 };
 
-// Arkadaşının eklenmesini istediği HUD tanımı:
 class RscTitles
 {
-    #include "ui\cwsp_hud.hpp"
+    #include "ui\cwsp_terminal.hpp"
 };

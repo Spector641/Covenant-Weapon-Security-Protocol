@@ -8,10 +8,10 @@ class CfgFunctions
 
             class detectWeapon {};
             class startFailsafe {};
-            class isAuthorized {};
-            class abortFailsafe {};
             class showWarning {};
             class playEffects {};
+            class isAuthorized {};
+            class abortFailsafe {};
         };
     };
 };

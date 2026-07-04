@@ -6,7 +6,7 @@
 - [x] Biometric authentication
 - [x] Countdown system
 - [x] Weapon release cancellation
-- [ ] Sound effects
+- [x] Sound effects
 - [ ] Halo-style UI
 - [ ] Weapon-specific failsafes
 

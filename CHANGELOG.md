@@ -1,21 +1,41 @@
 # Changelog
 
-All notable changes to Covenant Weapon Security Protocol will be documented here.
+All notable changes to Covenant Weapon Security Protocol (CWSP) will be documented in this file.
+
+The format is based on Keep a Changelog and the project follows Semantic Versioning.
 
 ---
 
-## Alpha 0.2 "Biometric Scan"
+## [0.2.1] - Hotfix: Final Verification
+
+### Fixed
+- Added a final biometric verification before activation.
+- Fixed an issue where the failsafe could still activate after the weapon was dropped during the final activation stage.
+- Improved the cancellation flow to ensure players can safely abort the failsafe before final activation.
+
+---
+
+## [0.2.0] - Biometric Scan
 
 ### Added
-- Covenant weapon detection
-- Weapon whitelist system
-- Biometric scan countdown
-- Failsafe cancellation by dropping the weapon
-- BLUFOR authorization check
-- Multiplayer-compatible architecture
+- Multi-stage biometric authentication sequence.
+- Biometric scan countdown.
+- Covenant weapon whitelist system.
+- BLUFOR authorization check.
+- Multiplayer-compatible architecture.
+- Failsafe cancellation by dropping the weapon.
 
 ### Changed
 - Replaced weapon prefix detection with a configurable weapon list.
+- Improved warning messages with a more immersive authentication flow.
 
-### Fixed
-- Prevented failsafe from triggering after the weapon has been dropped.
+---
+
+## [0.1.0] - First Contact
+
+### Added
+- Initial Covenant weapon detection.
+- Automatic failsafe activation for unauthorized users.
+- Basic 3-second countdown.
+- Initial explosion effect.
+- First working prototype.

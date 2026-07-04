@@ -10,6 +10,7 @@ class CfgFunctions
             class startFailsafe {};
             class showWarning {};
             class playEffects {};
+            class playAudio {};
             class isAuthorized {};
             class abortFailsafe {};
         };

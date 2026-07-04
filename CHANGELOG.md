@@ -6,6 +6,21 @@ The format is based on Keep a Changelog and the project follows Semantic Version
 
 ---
 
+## [0.4.0] - Audio Integration
+
+### Added
+- Modular audio system (`fn_playAudio`).
+- Audio cues for each stage of the failsafe sequence:
+  - Warning
+  - Biometric scan
+  - Countdown
+  - Activation
+
+### Changed
+- Integrated audio playback into the failsafe workflow while keeping the gameplay logic independent from the sound system.
+
+---
+
 ## [0.3.0] - System Refactor
 
 ### Added

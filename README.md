@@ -1,3 +1,8 @@
+████████████████████████████████████████
+
+        COVENANT WEAPON SECURITY PROTOCOL
+
+████████████████████████████████████████
 # Covenant Weapon Security Protocol (CWSP)
 
 > *"Unauthorized users are not permitted to operate Covenant weaponry."*

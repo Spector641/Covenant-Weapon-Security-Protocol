@@ -6,6 +6,21 @@ The format is based on Keep a Changelog and the project follows Semantic Version
 
 ---
 
+## [0.3.0] - System Refactor
+
+### Added
+- Modular warning display system (`fn_showWarning`).
+- Dedicated effects handler (`fn_playEffects`).
+
+### Changed
+- Refactored the failsafe sequence into reusable functions.
+- Improved code readability and maintainability.
+
+### Fixed
+- Preserved final biometric verification logic during the refactor.
+
+---
+
 ## [0.2.1] - Hotfix: Final Verification
 
 ### Fixed

@@ -1,3 +1,5 @@
+call compile preprocessFileLineNumbers "scripts\cwsp_weapons.sqf";
+
 waitUntil {!isNull player};
 
 player addEventHandler ["Take",

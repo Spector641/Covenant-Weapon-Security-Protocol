@@ -1,19 +1,18 @@
 /*
     Author: Spector641
     Project: Custom Weapon Security Protocol (CWSP)
-    Description: Core framework initialization. Adds a CBA player event handler to monitor weapon changes.
+    Description: Core framework initialization. Automatically executes via postInit to monitor weapon states.
 */
 
-if (!hasInterface) exitWith {}; // Exit if running on a headless client or dedicated server system
+if (!hasInterface) exitWith {};
 
-// Wait for the mission display and CBA settings layout to be fully ready
+// Enforce guard check until player object is initialized in the world space
 waitUntil { !isNull player && time > 0 };
 
-// Add a CBA Event Handler that triggers every time the unit changes their current weapon
+// Register global monitoring event handler layout via CBA
 ["weapon", {
     params ["_unit", "_weapon"];
     
-    // Only check if it is the actual player drawing the weapon
     if (_unit == player) then {
         [_unit, _weapon] call CWSP_fnc_detectWeapon;
     };

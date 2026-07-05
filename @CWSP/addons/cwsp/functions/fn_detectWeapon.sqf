@@ -6,15 +6,14 @@
 
 params ["_unit", "_weapon"];
 
-private _targetList = [];
+// Exit instantly if the weapon is empty (hands free)
+if (_weapon == "") exitWith {};
 
-// Fetch safe default fallback value if CBA variables aren't initialized yet
+private _targetList = [];
 private _currentPreset = if (isNil "cwsp_weapon_preset") then { 0 } else { cwsp_weapon_preset };
 
-// Map choices based on the drop-down index selection
 switch (_currentPreset) do {
     case 0: {
-        // Preset 0: Covenant Weapons Pack (Your original core list)
         _targetList = [
             "OPTRE_FC_T50_SRS",
             "OPTRE_FC_T51_Repeater",
@@ -29,19 +28,18 @@ switch (_currentPreset) do {
         ];
     };
     case 1: {
-        // Preset 1: General Sci-Fi / Custom Universe Tech (Add any mod weapons here later)
         _targetList = [
-            "arifle_ARX_blk_F", // Example: Vanilla Hex-Launcher rifle
-            "srifle_DMR_05_blk_F" // Example: Cyrus 9.3mm fütüristik DMR
+            "arifle_ARX_blk_F",
+            "srifle_DMR_05_blk_F"
         ];
     };
     case 2: {
-        // Preset 2: Global Catch-All (For testing, triggers on any primary/secondary weapon)
-        _targetList = [currentWeapon _unit];
+        // Safe catch-all validation array check
+        _targetList = [_weapon];
     };
 };
 
-// If the player's weapon is registered inside our active mapped target array
+// If the weapon is tracked in our active target pack configuration
 if (_weapon in _targetList) then {
     private _timerValue = if (isNil "cwsp_failsafe_timer") then { 9 } else { cwsp_failsafe_timer };
     [_unit, _weapon, _timerValue] spawn CWSP_fnc_startFailsafe;

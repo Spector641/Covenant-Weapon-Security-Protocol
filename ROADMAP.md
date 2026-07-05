@@ -14,17 +14,17 @@
 
 ## Beta
 
-- [ ] CBA Settings support
-- [ ] Mission maker API
-- [ ] Configurable authorization
+- [x] CBA Settings support
+- [x] Mission maker API
+- [x] Configurable authorization
 - [ ] Localization support
 
 ---
 
 ## Version 1.0
 
-- [ ] Steam Workshop release
-- [ ] Full documentation
-- [ ] Multiplayer validation
-- [ ] Public release
+- [x] Steam Workshop release
+- [x] Full documentation
+- [x] Multiplayer validation
+- [x] Public release
 

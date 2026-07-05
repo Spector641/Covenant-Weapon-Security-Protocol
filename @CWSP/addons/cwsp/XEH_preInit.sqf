@@ -1,10 +1,10 @@
 // --- CWSP: GLOBAL CBA SETTINGS CONFIGURATION ---
 
-// CONFIGURATION 1: Weapon Blacklist Text Edit Box (Strict CBA Syntax)
+// CONFIGURATION 1: Weapon Blacklist Text Edit Box (Ultra Safe Syntax)
 [
     "cwsp_blacklist_weapons",
     "EDIT",
-    ["Weapon Blacklist Classnames", "Enter the classnames of restricted weapons separated by commas."],
+    "Weapon Blacklist Classnames (Separated by commas)",
     "Custom Weapon Security Protocol",
     "OPTRE_fc_Hex_Shield, OPTRE_fc_Repeater, OPTRE_fc_Spiker, OPTRE_fc_Plasma_Pistol",
     1

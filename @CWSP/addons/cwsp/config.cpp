@@ -1,19 +1,14 @@
 class CfgPatches
 {
-    class CWSP
+    class cwsp_addon
     {
-        name = "Covenant Weapon Security Protocol";
+        name = "Custom Weapon Security Protocol";
         author = "Spector641";
         url = "https://www.patreon.com/Spector641";
-        requiredVersion = 2.16;
-        requiredAddons[] = 
-        {
-            "A3_Weapons_F",
-            "cba_main",
-            "cba_settings"
-        };
         units[] = {};
         weapons[] = {};
+        requiredVersion = 1.0;
+        requiredAddons[] = {"A3_Weapons_F", "cba_main", "cba_settings"};
     };
 };
 
@@ -21,24 +16,13 @@ class CfgFunctions
 {
     class CWSP
     {
-        class Main
+        class Functions
         {
-            file = "addons\cwsp\functions";
-            
-            // PostInit core function
-            class init { postInit = 1; };
-            
-            // Security and validation functions
+            file = "\cwsp\functions";
             class detectWeapon {};
-            class checkWeapon {};
-            class isAuthorized {};
-            
-            // Failsafe management functions
             class startFailsafe {};
             class abortFailsafe {};
-            class handleFailsafe {};
-            
-            // UI and effects functions
+            class isAuthorized {};
             class showWarning {};
             class showTerminal {};
             class playAudio {};
@@ -47,19 +31,9 @@ class CfgFunctions
     };
 };
 
-class Extended_PostInit_EventHandlers
-{
-    class CWSP_PostInit
-    {
-        init = "player addEventHandler ['Take', { params ['_unit','','_item']; [_unit,_item] call CWSP_fnc_detectWeapon; }];";
-    };
-};
-
 // --- CBA SETTINGS INTEGRATION ---
-class Extended_PreInit_EventHandlers 
-{
-    class cwsp_settings_init 
-    {
-        init = "call compile preprocessFileLineNumbers 'addons\cwsp\XEH_preInit.sqf'";
+class Extended_PreInit_EventHandlers {
+    class cwsp_settings_init {
+        init = "call compile preprocessFileLineNumbers '\cwsp\XEH_preInit.sqf'";
     };
 };

@@ -4,13 +4,17 @@
     Description: Pre-initialization script to register fully dynamic server and client options via CBA Settings API.
 */
 
-// CONFIGURATION 1: Weapon Blacklist Text Edit Box (Strict CBA Standard Array Layout)
+// CONFIGURATION 1: Target Weapon Preset Pack Selection
 [
-    "cwsp_blacklist_weapons",
-    "EDIT",
-    ["Weapon Blacklist Classnames", "Enter weapon classnames separated by commas."],
+    "cwsp_weapon_preset",
+    "LIST",
+    "Target Weapon Preset Pack",
     "Custom Weapon Security Protocol",
-    "OPTRE_FC_T50_SRS, OPTRE_FC_T51_Repeater, OPTRE_FC_T33_FuelRod_Cannon, OPTRE_FC_Plasma_Pistol, OPTRE_FC_Needler",
+    [
+        [0, 1, 2], 
+        ["Covenant (OPTRE First Contact)", "Sci-Fi / Universal Tech", "Vanilla / All Weapons (Testing)"], 
+        0
+    ],
     1
 ] call CBA_fnc_addSetting;
 
@@ -18,7 +22,7 @@
 [
     "cwsp_failsafe_timer",
     "SLIDER",
-    ["Authentication Timer", "How many seconds the player has to drop the weapon before detonation."],
+    "Authentication Timer",
     "Custom Weapon Security Protocol",
     [3, 30, 9, 0],
     1
@@ -28,7 +32,7 @@
 [
     "cwsp_interface_theme",
     "LIST",
-    ["Interface Theme", "Choose the visual HUD overlay theme for the warning protocol."],
+    "Interface Theme",
     "Custom Weapon Security Protocol",
     [[0, 1], ["Covenant (Neon Purple)", "Sci-Fi / Universal (Red-White)"], 0],
     1

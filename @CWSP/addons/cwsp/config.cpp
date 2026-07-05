@@ -19,7 +19,7 @@ class CfgFunctions
         class Functions
         {
             file = "\cwsp\functions";
-            class init {}; // Explicitly declared to satisfy the compiler pipeline
+            class init { postInit = 1; }; // Added postInit to force the script to run automatically on spawn
             class detectWeapon {};
             class startFailsafe {};
             class abortFailsafe {};

@@ -1,9 +1,9 @@
 name = "Covenant Weapon Security Protocol";
-picture = ""; // We can add a logo path later
-logo = "";
-logoOver = "";
+picture = "logo.paa"; 
+logo = "logo.paa";
+logoOver = "logo.paa";
 tooltip = "CWSP Alpha";
 tooltipOwned = "CWSP Owned";
 overview = "An immersive security protocol mod for Covenant weaponry. Unauthorized possession has consequences.";
 author = "Spector641";
-overviewPicture = "";
+overviewPicture = "preview.png";

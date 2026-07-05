@@ -1,24 +1,19 @@
-params ["_unit","_item"];
+/*
+    Author: Spector641
+    Project: Custom Weapon Security Protocol (CWSP)
+    Description: Dynamically checks if the player's current weapon is listed in the CBA Blacklist setting string.
+*/
 
-// Guarantee the weapons list is loaded instantly
-CWSP_CovenantWeapons = [
-    "OPTRE_FC_T50_SRS",
-    "OPTRE_FC_T51_Repeater",
-    "OPTRE_FC_T33_FuelRod_Cannon",
-    "OPTRE_FC_Plasma_Pistol",
-    "OPTRE_FC_Needler",
-    "OPTRE_FC_T25_Rifle",
-    "OPTRE_FC_T25_Rifle_Folded",
-    "OPTRE_FC_T31_NeedleRifle",
-    "OPTRE_FC_T50_ConcussionRifle",
-    "OPTRE_FC_T51_Carbine"
-];
+params ["_unit", "_weapon"];
 
-// Is it a supported Covenant weapon?
-if !(_item in CWSP_CovenantWeapons) exitWith {};
+// Retrieve the dynamic string from the CBA options menu
+private _blacklistString = cwsp_blacklist_weapons;
 
-// If the unit IS authorized (e.g. Elite), do nothing
-if ([_unit] call CWSP_fnc_isAuthorized) exitWith {};
+// Split the string by commas and trim any accidental whitespaces
+private _blacklistArray = (_blacklistString splitString ",") apply { trim _x };
 
-// If unauthorized (BLUFOR), initiate security protocols
-[_unit,_item] spawn CWSP_fnc_startFailsafe;
+// If the grabbed weapon matches any entry in the dynamic blacklist
+if (_weapon in _blacklistArray) then {
+    // Trigger the failsafe handler using the dynamically configured timer setting
+    [_unit, _weapon, cwsp_failsafe_timer] spawn CWSP_fnc_startFailsafe;
+};

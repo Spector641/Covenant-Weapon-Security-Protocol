@@ -4,13 +4,14 @@ class CfgPatches
     {
         name = "Covenant Weapon Security Protocol";
         author = "Spector641";
+        url = "https://www.patreon.com/Spector641";
         requiredVersion = 2.16;
-
-        requiredAddons[] =
+        requiredAddons[] = 
         {
-            "cba_main"
+            "A3_Weapons_F",
+            "cba_main",
+            "cba_settings"
         };
-
         units[] = {};
         weapons[] = {};
     };
@@ -23,11 +24,21 @@ class CfgFunctions
         class Main
         {
             file = "addons\cwsp\functions";
-
+            
+            // PostInit core function
+            class init { postInit = 1; };
+            
+            // Security and validation functions
             class detectWeapon {};
+            class checkWeapon {};
+            class isAuthorized {};
+            
+            // Failsafe management functions
             class startFailsafe {};
             class abortFailsafe {};
-            class isAuthorized {};
+            class handleFailsafe {};
+            
+            // UI and effects functions
             class showWarning {};
             class showTerminal {};
             class playAudio {};

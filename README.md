@@ -5,7 +5,7 @@
 ████████████████████████████████████████
 # Covenant Weapon Security Protocol (CWSP)
 
-![Version](https://img.shields.io/badge/version-0.2.1-blue)
+![Version](https://img.shields.io/badge/version-0.3.1-blue)
 ![Status](https://img.shields.io/badge/status-Alpha-orange)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -126,9 +126,17 @@ Halo is a property of Microsoft and Halo Studios.
 Arma 3 is developed by Bohemia Interactive.
 
 This project is not affiliated with or endorsed by Microsoft, Halo Studios, Bohemia Interactive, OPTRE or any Halo mod development team.
+## Support & Credits
 
 ---
 
+**Development & Design:** 
+* **Spector641** - Lead Developer
+
+If you want to support the ongoing development sprints of CWSP:
+* [Become a Patron on Patreon](https://www.patreon.com/Spector641)
+* [Türkiye'den destek olmak için](https://donate.bynogame.com/spector)
+
 ## License
 
-License to be determined.
+This project is licensed under the MIT License - see the LICENSE file for details.

@@ -1,155 +1,50 @@
 /*
-    Covenant Weapon Security Protocol
-    Starts the biometric failsafe sequence.
+    Author: Spector641
+    Project: Custom Weapon Security Protocol (CWSP)
+    Description: Handles the dynamic countdown loop based on selected CBA interface themes and timer configurations.
 */
 
-params ["_unit", "_weapon"];
+params ["_unit", "_weapon", "_timer"];
 
-//--------------------------------------------------
-// Helper
-//--------------------------------------------------
+private _hasDropped = false;
 
-private _holdingWeapon = {
-    _weapon in weapons _unit
+// Theme configuration defaults (0 = Covenant Neon Purple)
+private _themeColor = "#a124db"; 
+private _themeHeader = "COVENANT WEAPON SECURITY PROTOCOL";
+
+// Apply Theme 1 override (1 = Sci-Fi / Universal Red-White)
+if (cwsp_interface_theme == 1) then {
+    _themeColor = "#e63946"; 
+    _themeHeader = "WEAPON SECURITY PROTOCOL - UNAUTHORIZED";
 };
 
-//--------------------------------------------------
-// Stage 1 - Warning
-//--------------------------------------------------
-
-[
-"
-<t align='center' color='#FFAA00'>
-STATUS: WARNING
-</t>
-
-<br/><br/>
-
-<t align='center'>
-FOREIGN BIOMETRIC SIGNATURE DETECTED
-</t>
-"
-] call CWSP_fnc_showWarning;
-
-["warning"] call CWSP_fnc_playAudio;
-
-sleep 1;
-
-if (!alive _unit) exitWith {};
-if !([] call _holdingWeapon) exitWith {
-    [] call CWSP_fnc_abortFailsafe;
-};
-
-//--------------------------------------------------
-// Stage 2 - Scan
-//--------------------------------------------------
-
-[
-"
-<t align='center'>
-SCANNING...
-</t>
-
-<br/><br/>
-
-<t align='center'>
-SPECIES IDENTIFICATION
-</t>
-
-<br/><br/>
-
-<t align='center' color='#FF4040'>
-RESULT: UNAUTHORIZED USER
-</t>
-"
-] call CWSP_fnc_showWarning;
-
-["scan"] call CWSP_fnc_playAudio;
-
-sleep 1;
-
-if (!alive _unit) exitWith {};
-if !([] call _holdingWeapon) exitWith {
-    [] call CWSP_fnc_abortFailsafe;
-};
-
-//--------------------------------------------------
-// Stage 3 - Countdown
-//--------------------------------------------------
-
-for "_i" from 3 to 1 step -1 do {
-
-    [
-    format
-    [
-        "
-        <t align='center' color='#FF4040'>
-        AUTHENTICATION FAILED
-        </t>
-
-        <br/><br/>
-
-        <t align='center'>
-        FAILSAFE PROTOCOL ARMED
-        </t>
-
-        <br/><br/>
-
-        <t align='center' size='2.2' color='#FFAA00'>%1</t>
-        ",
-        _i
-    ]
-    ] call CWSP_fnc_showWarning;
-
-    ["countdown"] call CWSP_fnc_playAudio;
-
-    sleep 1;
-
-    if (!alive _unit) exitWith {};
-    if !([] call _holdingWeapon) exitWith {
-        [] call CWSP_fnc_abortFailsafe;
+// Main Countdown Loop
+while {_timer > 0} do {
+    // Break the loop instantly if the player discards the blacklisted weapon
+    if (currentWeapon _unit != _weapon) exitWith {
+        _hasDropped = true;
     };
+
+    // Construct and display the dynamic HUD interface tile using theme elements
+    private _structuredText = parseText format [
+        "<t color='%1' size='1.5' font='PuristaMedium' align='center'>%2<br/><br/>WARNING<br/><br/>FOREIGN SIGNATURE DETECTED<br/><br/>Failsafe activating in:<br/><size='2'>%3</size></t>", 
+        _themeColor, 
+        _themeHeader,
+        _timer
+    ];
+    [_structuredText, [0, 0.2, 1, 1], nil, 1, 0, 0] spawn BIS_fnc_textTiles;
+
+    uiSleep 1;
+    _timer = _timer - 1;
 };
 
-//--------------------------------------------------
-// Final Verification
-//--------------------------------------------------
-
-[
-"
-<t align='center' color='#FFAA00'>
-FINAL BIOMETRIC VERIFICATION
-</t>
-"
-] call CWSP_fnc_showWarning;
-
-sleep 0.5;
-
-if (!alive _unit) exitWith {};
-if !([] call _holdingWeapon) exitWith {
-    [] call CWSP_fnc_abortFailsafe;
+// Terminal Execution Layer
+if (!_hasDropped && (currentWeapon _unit == _weapon)) then {
+    // Forcefully strip the weapon from the unauthorized user
+    _unit removeWeapon _weapon;
+    
+    // Trigger detonation at the target vector layout
+    private _pos = getPosATL _unit;
+    private _explosive = "ExplosionEffectsClass" createVehicle _pos; 
+    _unit setDamage 0.8; 
 };
-
-//--------------------------------------------------
-// Activated
-//--------------------------------------------------
-
-[
-"
-<t align='center' color='#FF0000' size='1.5'>
-FAILSAFE ACTIVATED
-</t>
-"
-] call CWSP_fnc_showWarning;
-
-["activated"] call CWSP_fnc_playAudio;
-
-sleep 0.3;
-
-hintSilent "";
-
-//--------------------------------------------------
-// Effects
-//--------------------------------------------------
-
-[_unit, _weapon] call CWSP_fnc_playEffects;

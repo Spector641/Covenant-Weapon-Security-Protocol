@@ -19,6 +19,7 @@ class CfgFunctions
         class Functions
         {
             file = "\cwsp\functions";
+            class init {}; // Explicitly declared to satisfy the compiler pipeline
             class detectWeapon {};
             class startFailsafe {};
             class abortFailsafe {};

@@ -54,3 +54,12 @@ class Extended_PostInit_EventHandlers
         init = "player addEventHandler ['Take', { params ['_unit','','_item']; [_unit,_item] call CWSP_fnc_detectWeapon; }];";
     };
 };
+
+// --- CBA SETTINGS INTEGRATION ---
+class Extended_PreInit_EventHandlers 
+{
+    class cwsp_settings_init 
+    {
+        init = "call compile preprocessFileLineNumbers 'addons\cwsp\XEH_preInit.sqf'";
+    };
+};

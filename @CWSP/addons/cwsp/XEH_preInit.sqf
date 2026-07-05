@@ -1,31 +1,35 @@
-// --- CWSP: GLOBAL CBA SETTINGS ---
+// --- CWSP: GLOBAL CBA SETTINGS CONFIGURATION ---
 
-// SETTING 1: Weapon Blacklist (User enters the desired weapon classnames separated by commas)
+// CONFIGURATION 1: Weapon Blacklist Text Edit Box
 [
-    "cwsp_blacklist_weapons", // Variable name used within the code
-    "EDIT",                   // Setting type: Text box (Input field)
-    ["Weapon Blacklist Classnames", "Enter the classnames of restricted weapons separated by commas."], // Title and description in the menu
-    "Custom Weapon Security Protocol", // Main category name visible in the menu
-    "OPTRE_fc_Hex_Shield, OPTRE_fc_Repeater, OPTRE_fc_Spiker, OPTRE_fc_Plasma_Pistol", // Default plasma weapons
-    1                         // 1 = Server-side enforced setting
+    "cwsp_blacklist_weapons",
+    "EDIT",
+    ["Weapon Blacklist Classnames", "Enter the classnames of restricted weapons separated by commas."],
+    "Custom Weapon Security Protocol",
+    "OPTRE_fc_Hex_Shield, OPTRE_fc_Repeater, OPTRE_fc_Spiker, OPTRE_fc_Plasma_Pistol",
+    1,
+    {
+        params ["_value"];
+        // Settings changed callback (optional)
+    }
 ] call CBA_fnc_addSetting;
 
-// SETTING 2: Countdown Timer (Slider in seconds)
+// CONFIGURATION 2: Failsafe Timer Slider
 [
-    "cwsp_failsafe_timer",    // Variable name
-    "SLIDER",                 // Setting type: Slider
+    "cwsp_failsafe_timer",
+    "SLIDER",
     ["Authentication Timer", "How many seconds the player has to drop the weapon before detonation."],
     "Custom Weapon Security Protocol",
-    [3, 30, 9, 0],            // [Min, Max, Default value, Decimal places] (Between 3 and 30 seconds, default 9)
+    [3, 30, 9, 0],
     1
 ] call CBA_fnc_addSetting;
 
-// SETTING 3: Visual Theme Selection (Covenant or Generic Sci-Fi)
+// CONFIGURATION 3: UI Layout Concept Theme Drop-down Selection
 [
-    "cwsp_interface_theme",   // Variable name
-    "LIST",                   // Setting type: Drop-down list
+    "cwsp_interface_theme",
+    "LIST",
     ["Interface Theme", "Choose the visual HUD overlay theme for the warning protocol."],
     "Custom Weapon Security Protocol",
-    [[0, 1], ["Covenant (Neon Purple)", "Sci-Fi / Universal (Red-White)"], 0], // [Values, Display names, Default index]
+    [[0, 1], ["Covenant (Neon Purple)", "Sci-Fi / Universal (Red-White)"], 0],
     1
 ] call CBA_fnc_addSetting;

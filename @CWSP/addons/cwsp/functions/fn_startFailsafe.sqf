@@ -45,6 +45,6 @@ if (!_hasDropped && (currentWeapon _unit == _weapon)) then {
     
     // Trigger detonation at the target vector layout
     private _pos = getPosATL _unit;
-    private _explosive = "ExplosionEffectsClass" createVehicle _pos; 
+    private _explosive = "M_Modules_ExplodeBig" createVehicle _pos; // Replaced placeholder with a working engine explosion
     _unit setDamage 0.8; 
 };

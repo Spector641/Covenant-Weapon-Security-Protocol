@@ -12,8 +12,11 @@ private _hasDropped = false;
 private _themeColor = "#a124db"; 
 private _themeHeader = "COVENANT WEAPON SECURITY PROTOCOL";
 
+// Fetch safe default fallback values if CBA variables aren't fully populated yet
+private _currentTheme = if (isNil "cwsp_interface_theme") then { 0 } else { cwsp_interface_theme };
+
 // Apply Theme 1 override (1 = Sci-Fi / Universal Red-White)
-if (cwsp_interface_theme == 1) then {
+if (_currentTheme == 1) then {
     _themeColor = "#e63946"; 
     _themeHeader = "WEAPON SECURITY PROTOCOL - UNAUTHORIZED";
 };
@@ -45,6 +48,6 @@ if (!_hasDropped && (currentWeapon _unit == _weapon)) then {
     
     // Trigger detonation at the target vector layout
     private _pos = getPosATL _unit;
-    private _explosive = "M_Modules_ExplodeBig" createVehicle _pos; // Replaced placeholder with a working engine explosion
+    private _explosive = "M_Modules_ExplodeBig" createVehicle _pos; 
     _unit setDamage 0.8; 
 };

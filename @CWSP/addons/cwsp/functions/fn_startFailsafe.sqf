@@ -1,25 +1,20 @@
 /*
     Author: Spector641
     Project: Custom Weapon Security Protocol (CWSP)
-    Description: Handles the dynamic countdown loop based on selected CBA interface themes and timer configurations.
+    Description: Handles the countdown sequence using the original warning hints, audio tracks, and explosion effects.
 */
 
 params ["_unit", "_weapon", "_timer"];
 
 private _hasDropped = false;
 
-// Theme configuration defaults (0 = Covenant Neon Purple)
-private _themeColor = "#a124db"; 
-private _themeHeader = "COVENANT WEAPON SECURITY PROTOCOL";
+// 1. SCANNING Stage: Trigger initial audio and alert the user
+["scan"] call CWSP_fnc_playAudio;
+[
+    "<t color='#e63946'>FOREIGN SIGNATURE DETECTED</t><br/>Scanning weapon diagnostics..."
+] call CWSP_fnc_showWarning;
 
-// Fetch safe default fallback values if CBA variables aren't fully populated yet
-private _currentTheme = if (isNil "cwsp_interface_theme") then { 0 } else { cwsp_interface_theme };
-
-// Apply Theme 1 override (1 = Sci-Fi / Universal Red-White)
-if (_currentTheme == 1) then {
-    _themeColor = "#e63946"; 
-    _themeHeader = "WEAPON SECURITY PROTOCOL - UNAUTHORIZED";
-};
+uiSleep 1.5;
 
 // Main Countdown Loop
 while {_timer > 0} do {
@@ -28,26 +23,39 @@ while {_timer > 0} do {
         _hasDropped = true;
     };
 
-    // Construct and display the dynamic HUD interface tile using theme elements
-    private _structuredText = parseText format [
-        "<t color='%1' size='1.5' font='PuristaMedium' align='center'>%2<br/><br/>WARNING<br/><br/>FOREIGN SIGNATURE DETECTED<br/><br/>Failsafe activating in:<br/><size='2'>%3</size></t>", 
-        _themeColor, 
-        _themeHeader,
+    // 2. COUNTDOWN Stage: Play beep sound and update the original right-side hint layout
+    ["countdown"] call CWSP_fnc_playAudio;
+    
+    private _warningText = format [
+        "<t color='#ff3333' size='1.2'>FAILSAFE ACTIVATING</t><br/><br/>Unauthorized user detected.<br/>Detonation in: <t size='1.4' color='#ffffff'>%1</t> seconds.", 
         _timer
     ];
-    [_structuredText, [0, 0.2, 1, 1], nil, 1, 0, 0] spawn BIS_fnc_textTiles;
+    [_warningText] call CWSP_fnc_showWarning;
 
     uiSleep 1;
     _timer = _timer - 1;
 };
 
-// Terminal Execution Layer
-if (!_hasDropped && (currentWeapon _unit == _weapon)) then {
-    // Forcefully strip the weapon from the unauthorized user
-    _unit removeWeapon _weapon;
+// Post-loop validation check
+if (_hasDropped) exitWith {
+    // If player dropped it in time, trigger the clean cancel function you wrote
+    [] call CWSP_fnc_abortFailsafe;
+};
+
+// 3. TERMINAL ACTIVATION Stage: BOOM!
+if (currentWeapon _unit == _weapon) then {
+    // Trigger the final activated sound state
+    ["activated"] call CWSP_fnc_playAudio;
     
-    // Trigger detonation at the target vector layout
-    private _pos = getPosATL _unit;
-    private _explosive = "M_Modules_ExplodeBig" createVehicle _pos; 
-    _unit setDamage 0.8; 
+    [
+        "<t color='#ff0000' size='1.3'>PROTOCOL ACTIVATED</t><br/><br/>Failsafe detonation triggered."
+    ] call CWSP_fnc_showWarning;
+    
+    uiSleep 0.5;
+    
+    // Clear the active hints safely
+    hintSilent "";
+    
+    // Execute your original effects file (Deletes weapon and spawns the GBU bomb explosion!)
+    [_unit, _weapon] call CWSP_fnc_playEffects;
 };

@@ -1,7 +1,7 @@
 /*
     Author: Spector641
     Project: Custom Weapon Security Protocol (CWSP)
-    Description: Handles specific weapon overrides (Covenant lore explosions) and falls back to dynamic CBA severity choices.
+    Description: Handles specific weapon overrides with strict case-insensitivity and falls back to CBA choices.
 */
 
 params ["_unit", "_weapon"];
@@ -12,26 +12,29 @@ _unit removeWeapon _weapon;
 private _pos = getPosATL _unit;
 private _explosionClass = "";
 
+// Convert the weapon string to uppercase to guarantee perfect case-insensitive matching
+private _weaponUpper = toUpper _weapon;
+
 // --- LAYER 1: COVENANT WEAPON SPECIFIC OVERRIDES ---
 private _currentPreset = if (isNil "cwsp_weapon_preset") then { 0 } else { cwsp_weapon_preset };
 
 if (_currentPreset == 0) then {
-    switch (_weapon) do {
-        // Needler: Pembe kristal patlaması hissiyatı için anında infilak eden hafif zırh delici mühimmat
-        case "OPTRE_FC_Needler": {
+    switch (_weaponUpper) do {
+        // Needler: Strict uppercase check
+        case "OPTRE_FC_NEEDLER": {
             _explosionClass = "M_Titan_AP"; 
         };
-        // Fuel Rod Cannon: Devasa plazma patlaması için yeşil/parlak etki yaratacak yıkıcı anti-tank füzesi
-        case "OPTRE_FC_T33_FuelRod_Cannon": {
+        // Fuel Rod Cannon: Strict uppercase check
+        case "OPTRE_FC_T33_FUELROD_CANNON": {
             _explosionClass = "M_Mocha_AT"; 
         };
-        // Plasma Pistol: Küçük ama aşırı ısınmış plazma arkı için hafif şok etkisi yaratan patlama
-        case "OPTRE_FC_Plasma_Pistol": {
+        // Plasma Pistol: Strict uppercase check
+        case "OPTRE_FC_PLASMA_PISTOL": {
             _explosionClass = "M_AirToAir_AA"; 
         };
-        // T51 Carbine veya Concussion Rifle: Orta ölçekli Covenant baskı ateşi patlaması
-        case "OPTRE_FC_T50_ConcussionRifle";
-        case "OPTRE_FC_T51_Carbine": {
+        // Concussion Rifle & Carbine: Strict uppercase check
+        case "OPTRE_FC_T50_CONCUSSIONRIFLE";
+        case "OPTRE_FC_T51_CARBINE": {
             _explosionClass = "M_PG_AT";
         };
     };
@@ -42,9 +45,9 @@ if (_explosionClass == "") then {
     private _severity = if (isNil "cwsp_explosion_severity") then { 1 } else { cwsp_explosion_severity };
     
     switch (_severity) do {
-        case 0: { _explosionClass = "M_PG_AT"; };            // Light: Instant impact dynamic missile
-        case 1: { _explosionClass = "Bo_GBU12_LGB"; };       // Medium: Original GBU Laser Guided Bomb
-        case 2: { _explosionClass = "Bo_Mk82"; };            // Heavy: Massive 500lb bomb blast
+        case 0: { _explosionClass = "M_PG_AT"; };            // Light
+        case 1: { _explosionClass = "Bo_GBU12_LGB"; };       // Medium (Original GBU)
+        case 2: { _explosionClass = "Bo_Mk82"; };            // Heavy
     };
 };
 

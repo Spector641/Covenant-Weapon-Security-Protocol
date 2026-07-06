@@ -37,3 +37,17 @@
     [[0, 1], ["Covenant (Neon Purple)", "Sci-Fi / Universal (Red-White)"], 0],
     1
 ] call CBA_fnc_addSetting;
+
+// CONFIGURATION 4: Explosion Severity Selection (Fulfilling the 3rd promise!)
+[
+    "cwsp_explosion_severity",
+    "LIST",
+    "Explosion Severity",
+    "Custom Weapon Security Protocol",
+    [
+        [0, 1, 2], 
+        ["Light (Standard Grenade)", "Medium (Original GBU Laser Guided Bomb)", "Heavy (Massive Ordnance Detonation)"], 
+        1
+    ],
+    1
+] call CBA_fnc_addSetting;

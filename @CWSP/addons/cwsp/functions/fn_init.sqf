@@ -1,7 +1,7 @@
 /*
     Author: Spector641
     Project: Custom Weapon Security Protocol (CWSP)
-    Description: Core framework initialization. Automatically executes via postInit to monitor weapon states.
+    Description: Core framework initialization. Automatically executes via postInit to monitor weapon states with strict locality.
 */
 
 if (!hasInterface) exitWith {};
@@ -13,7 +13,8 @@ waitUntil { !isNull player && time > 0 };
 ["weapon", {
     params ["_unit", "_weapon"];
     
-    if (_unit == player) then {
+    // STRICT LOCALITY CHECK: Only monitor if the event belongs to the actual local player entity
+    if (_unit == player && {local _unit}) then {
         [_unit, _weapon] call CWSP_fnc_detectWeapon;
     };
 }] call CBA_fnc_addPlayerEventHandler;
